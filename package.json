@@ -1,6 +1,6 @@
 {
   "name": "rets.js",
-  "version": "0.0.4",
+  "version": "0.0.7",
   "description": "Simplified RETS Node Client",
   "keywords": [
     "rets",
@@ -20,37 +20,34 @@
   ],
   "main": "index.js",
   "dependencies": {
-    "MD5": "^1.2.1",
-    "bunyan": "^1.3.5",
-    "cli-table": "^0.3.1",
     "event-stream": "^3.3.0",
-    "extend": "^2.0.1",
     "inflected": "^1.1.6",
-    "lodash": "^3.5.0",
-    "merge-descriptors": "^1.0.0",
+    "lodash": "^4.14.2",
+    "md5": "^2.1.0",
     "request": "^2.53.0",
-    "sax": "^0.6.1",
+    "sax": "^1.2.1",
     "xml2js": "^0.4.6"
   },
   "devDependencies": {
     "coveralls": "^2.11.2",
     "debug": "^2.1.3",
-    "glob": "^5.0.3",
-    "handlebars": "^3.0.3",
-    "istanbul": "^0.3.8",
+    "glob": "^7.0.5",
+    "handlebars": "^4.0.5",
+    "istanbul": "^0.4.4",
     "jsdoc": "^3.3.0-beta3",
     "jsdox": "^0.4.9",
     "jshint": "^2.6.3",
-    "mocha": "^2.2.1",
-    "nock": "^1.2.0",
+    "mocha": "^3.0.2",
+    "nock": "^8.0.0",
     "nodemon": "^1.3.7",
-    "request-debug": "^0.1.1",
-    "should": "^5.2.0"
+    "request-debug": "^0.2.0",
+    "should": "^11.0.0"
   },
   "scripts": {
-    "test": "mocha test/index",
-    "test-servers": "mocha test/servers/live",
-    "test-watch": "mocha --watch --recursive --reporter spec test/index",
+    "pretest": "if [ ! -f test/servers/config.json ]; then cp -n test/servers/config.example.json test/servers/config.json; fi; jshint .",
+    "test": "rm -rf test/tmp && mocha test/index",
+    "test-servers": "rm -rf test/tmp; mocha test/servers/live",
+    "test-watch": "DEBUG=rets.js:* rm -rf test/tmp; mocha --watch --recursive --reporter spec test/index",
     "docs": "rm -rf docs && jsdox --output docs lib"
   },
   "repository": {
